@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "InputHandler.h"
 #include "FinalMaker.h"
-#include "FileHandler.h"
 
 int InputHandler::check(int argc, char ** argv)
 {
@@ -16,8 +15,11 @@ int InputHandler::check(int argc, char ** argv)
 				string str;
 				FianlMaker fm;
 				str = fm.make(n);
-				FileHandler fh;
-				fh.write("sudoku.txt", str);
+				ofstream out("sudoku.txt", ios::out | ios::trunc);	// 写入前先清空文件
+				if (out.is_open()) {
+					out << str;
+					out.close();
+				}
 				cout << "已生成" + parameter2 + "个数独终盘" << endl;
 			}
 			

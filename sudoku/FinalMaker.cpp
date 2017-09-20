@@ -1,24 +1,21 @@
 #include "stdafx.h"
 #include "FinalMaker.h"
-#include "FileHandler.h"
-
-
-
 
 
 string FianlMaker::make(int n){
 	num = n;
 	count = 0;
-	seednum = 0;
+	int a[9] = { 1,2,3,4,5,6,7,8,9 };
 	while (count < num) {
-		makeSeed();
+		makeTable(a);
+		next_permutation(a, a + 8);	 // 按升序进行全排列一次，只排列前8个元素
 	}
 	return out;
 }
 
-bool FianlMaker::toString(int table[][9]){
-	for (int i = 0; i < 9; i++) {
-		for (int j = 0; j < 9; j++) {
+bool FianlMaker::tableToString(int table[][9]){
+	for (size_t i = 0; i < 9; i++) {
+		for (size_t j = 0; j < 9; j++) {
 			out += char(table[i][j] + '0');
 			if (j != 8) {
 				out += " ";
@@ -118,7 +115,7 @@ void FianlMaker::combina(int c1, int c2, int c3, int r1, int r2, int r3){
 	else if (r3 == 5)
 		rowExchange(t, 6, 8);
 
-	toString(t);
+	tableToString(t);
 }
 
 void FianlMaker::makeTable(int a[]) {
@@ -134,34 +131,6 @@ void FianlMaker::makeTable(int a[]) {
 	changeTable(table);
 }
 
-void FianlMaker::makeSeed(){
-	int a[9] = { 1,2,3,4,5,6,7,8,9 };
-	int tmp, x;
-	int flag = 0;
-	while (true){
-		for (size_t i = 0; i < 8; i++) {	// 随机x,将a[x]与a[i]交换
-			x = rand() % 8;
-			tmp = a[x];
-			a[x] = a[i];
-			a[i] = tmp;
-		}
-		for (int i = 0; i < seednum; i++) {
-			if ((a[6] == seeds[i][0] && a[7] == seeds[i][1]) || (a[6] == seeds[i][1] && a[7] == seeds[i][0]) ||
-				(a[2] == seeds[i][2] && a[5] == seeds[i][3]) || (a[2] == seeds[i][3] && a[5] == seeds[i][2])) {
-				flag = 1;
-				break;
-			}
-		}
-		if (flag==0)
-			break;
-	}
-	seeds[seednum][0] = a[6];
-	seeds[seednum][1] = a[7];
-	seeds[seednum][2] = a[2];
-	seeds[seednum][3] = a[5];
-	seednum++;
-	makeTable(a);
-}
 
 void FianlMaker::changeTable(int table[][9]){
 	for (size_t c1 = 0; c1 < 2 && count<num; c1++)
