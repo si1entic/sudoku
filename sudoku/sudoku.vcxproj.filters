@@ -24,12 +24,30 @@
     <ClInclude Include="targetver.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="InputHandler.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="FinalMaker.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="FileHandler.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="sudoku.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="InputHandler.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="FileHandler.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="FinalMaker.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
