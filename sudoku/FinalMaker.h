@@ -11,11 +11,10 @@ public:
 private:
 	int num,count;
 	int table[9][9];
-	string out;
+	string str;
 	bool tableToString(int table[][9]);
 	void rowExchange(int table[][9],int r1, int r2);
 	void colExchange(int table[][9],int c1, int c2);
 	void combina(int c1, int c2, int c3, int r1, int r2, int r3);
 	void makeTable(int a[]);
-	void changeTable(int table[][9]);
 };

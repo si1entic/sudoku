@@ -6,7 +6,7 @@ using namespace std;
 
 class InputHandler {
 public:
-	int check(int argc, char **argv);
+	void check(int argc, char **argv);
 
 private:
 	int isNum(const string &str);

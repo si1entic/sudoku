@@ -1,8 +1,9 @@
 #include "stdafx.h"
 #include "InputHandler.h"
 #include "FinalMaker.h"
+#include "SudokuSolver.h"
 
-int InputHandler::check(int argc, char ** argv)
+void InputHandler::check(int argc, char ** argv)
 {
 	if (argc == 3) {
 		string parameter1 = argv[1];
@@ -25,12 +26,39 @@ int InputHandler::check(int argc, char ** argv)
 			
 		}
 		else if (parameter1 == "-s") {
-			if (isPath(parameter2)) {
-				// 在这调用求解函数
-				cout << "已解出" + parameter2 + "里的数独" << endl;
+			ifstream in(parameter2);
+			if (!in.is_open()) {
+				cout << parameter2 + "无法打开！" << endl;
+				return ;
+			}
+			
+			char ch[81];
+			char c;
+			int count = 0;
+			string answer = "";
+			while (in.get(c)) {	//in >> c 会忽略空白回车符
+				if (isdigit(c)) {
+					ch[count++] = c;
+				}
+				if (count == 81) {
+					count = 0;
+					SudokuSolver ss;
+					answer += ss.solve(ch);
+				}
+			}
+			if (count != 0) {
+				string str = "存在非法格式！";
+				answer += str;
+				cout << str << endl;
 			}
 			else
-				cout << parameter2 + "不存在！" << endl;
+				cout << "已解出" + parameter2 + "里的数独" << endl;
+			in.close();
+			ofstream out("sudoku.txt", ios::out|ios::trunc);
+			if (out.is_open()) {
+				out << answer;
+				out.close();
+			}
 		}
 		else {
 			cout << "输入有误！" << endl;
@@ -39,7 +67,7 @@ int InputHandler::check(int argc, char ** argv)
 	else {
 		cout << "输入有误！" << endl;
 	}
-	return 0;
+	return ;
 }
 
 int InputHandler::isNum(const string & str)

@@ -10,20 +10,20 @@ string FianlMaker::make(int n){
 		makeTable(a);
 		next_permutation(a, a + 8);	 // 按升序进行全排列一次，只排列前8个元素
 	}
-	return out;
+	return str;
 }
 
 bool FianlMaker::tableToString(int table[][9]){
 	for (size_t i = 0; i < 9; i++) {
 		for (size_t j = 0; j < 9; j++) {
-			out += char(table[i][j] + '0');
+			str += char(table[i][j] + '0');
 			if (j != 8) {
-				out += " ";
+				str += " ";
 			}
 		}
-		out += "\n";
+		str += "\n";
 	}
-	out += "\n";
+	str += "\n";
 	count++;
 	return count < num ? true : false;
 }
@@ -128,11 +128,6 @@ void FianlMaker::makeTable(int a[]) {
 	table[0][1] = table[1][7] = table[2][4] = table[3][0] = table[4][6] = table[5][3] = table[6][2] = table[7][8] = table[8][5] = a[6];
 	table[0][2] = table[1][8] = table[2][5] = table[3][1] = table[4][7] = table[5][4] = table[6][0] = table[7][6] = table[8][3] = a[7];
 	table[0][0] = table[1][6] = table[2][3] = table[3][2] = table[4][8] = table[5][5] = table[6][1] = table[7][7] = table[8][4] = a[8];
-	changeTable(table);
-}
-
-
-void FianlMaker::changeTable(int table[][9]){
 	for (size_t c1 = 0; c1 < 2 && count<num; c1++)
 		for (size_t c2 = 0; c2 < 6 && count<num; c2++)
 			for (size_t c3 = 0; c3 < 6 && count<num; c3++)
@@ -140,6 +135,4 @@ void FianlMaker::changeTable(int table[][9]){
 					for (size_t r2 = 0; r2 < 6 && count<num; r2++)
 						for (size_t r3 = 0; r3 < 6 && count<num; r3++)
 							combina(c1, c2, c3, r1, r2, r3);
-			
-	
 }
