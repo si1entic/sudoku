@@ -47,7 +47,7 @@ void InputHandler::check(int argc, char ** argv)
 				}
 			}
 			if (count != 0) {
-				string str = "存在非法格式！";
+				string str = "存在错误格式！";
 				answer += str;
 				cout << str << endl;
 			}

@@ -17,16 +17,13 @@ string SudokuSolver::solve(char ch[]) {
 			}
 		}
 	}
-	if (dfs(select + 1)) {
-		out = "";
-		for (size_t i = 0; i < 9; i++) {
-			for (size_t j = 0; j < 8; j++)
-				out += (to_string(table[i][j]) + " ");
-			out += (to_string(table[i][8]) + "\n");
-		}
+	(dfs(select + 1));
+	out = "";
+	for (size_t i = 0; i < 9; i++) {
+		for (size_t j = 0; j < 8; j++)
+			out += (to_string(table[i][j]) + " ");
+		out += (to_string(table[i][8]) + "\n");
 	}
-	else
-		out = "该数独无解\n";
 	out += "\n";
 	return out;
 }
