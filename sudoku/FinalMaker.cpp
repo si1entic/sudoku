@@ -29,20 +29,20 @@ bool FianlMaker::tableToString(int table[][9]){
 }
 
 void FianlMaker::rowExchange(int table[][9], int r1, int r2){
+	int temp; 
 	for (size_t i = 0; i < 9; i++){
-		int temp;
-		temp = table[i][r1];
-		table[i][r1] = table[i][r2];
-		table[i][r2] = temp;
+		temp = table[r1][i];
+		table[r1][i] = table[r2][i];
+		table[r2][i] = temp;
 	}
 }
 
 void FianlMaker::colExchange(int table[][9], int c1, int c2){
 	for (size_t i = 0; i < 9; i++) {
 		int temp;
-		temp = table[c1][i];
-		table[c1][i] = table[c2][i];
-		table[c2][i] = temp;
+		temp = table[i][c1];
+		table[i][c1] = table[i][c2];
+		table[i][c2] = temp;
 	}
 }
 

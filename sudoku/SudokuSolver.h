@@ -21,7 +21,7 @@ private:
 	int table[9][9];	// Êý¶À
 	int no;				// ÔªËØ±àºÅ
 	string out;
-	void transform(char ch[]);
+	void transform(int table[][9], char ch[]);
 	void link();
 	void insertNode(int c, int cnt);
 	void remove(int c);

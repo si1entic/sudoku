@@ -2,7 +2,7 @@
 #include "SudokuSolver.h"
 
 string SudokuSolver::solve(char ch[]) {
-	transform(ch);
+	transform(table,ch);
 	link();
 	int select = 0;
 	for (size_t i = 0; i < 9; i++) {
@@ -31,7 +31,7 @@ string SudokuSolver::solve(char ch[]) {
 	return out;
 }
 
-void SudokuSolver::transform(char ch[]) {
+void SudokuSolver::transform(int table[][9],char ch[]) {
 	int index = 0;
 	for (size_t i = 0; i < 9; i++)
 		for (size_t j = 0; j < 9; j++)
@@ -116,11 +116,11 @@ void SudokuSolver::remove(int c){	// 按列标元素移除相关元素
 	}
 }
 
-void SudokuSolver::restore(int c){
+void SudokuSolver::restore(int c){	
 	/* 恢复c列标元素 */
 	Left[Right[c]] = Right[Left[c]] = c;
 	/* 恢复c列“1”元素与其同行元素 */
-	for (size_t i = Up[c]; i != c; i = Up[i]){	 
+	for (size_t i = Up[c]; i != c; i = Up[i]){		// 恢复顺序与移除顺序相反
 		for (size_t j = Left[i]; j != i; j = Left[j]){	 
 			Up[Down[j]] = Down[Up[j]] = j;
 			Size[Col[j]]++;
@@ -132,7 +132,7 @@ bool SudokuSolver::dfs(int select){
 	if (select > 81)	// 已选够
 		return true;
 	int c, minnum = INT_MAX;
-	/* 遍历列标元素，选一个最少的列 */
+	/* 遍历列标元素，选一个元素最少的列（回溯率低） */
 	for (size_t i = Right[0]; i != 0; i = Right[i]) {	
 		if (Size[i] == 0)
 			return false;
