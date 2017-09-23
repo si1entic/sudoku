@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "FinalMaker.h"
 
-
 string FianlMaker::make(int n){
 	num = n;
 	count = 0;
