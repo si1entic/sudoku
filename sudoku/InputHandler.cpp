@@ -23,26 +23,26 @@ void InputHandler::check(int argc, char ** argv)
 				}
 				cout << "已生成" + parameter2 + "个数独终盘" << endl;
 			}
-			
+
 		}
 		else if (parameter1 == "-s") {
 			ifstream in(parameter2);
 			if (!in.is_open()) {
 				cout << parameter2 + "无法打开！" << endl;
-				return ;
+				return;
 			}
-			
+
 			char ch[81];
 			char c;
 			int count = 0;
 			string answer = "";
+			SudokuSolver ss;
 			while (in.get(c)) {	//in >> c 会忽略空白回车符
 				if (isdigit(c)) {
 					ch[count++] = c;
 				}
 				if (count == 81) {
 					count = 0;
-					SudokuSolver ss;
 					answer += ss.solve(ch);
 				}
 			}
@@ -54,7 +54,7 @@ void InputHandler::check(int argc, char ** argv)
 			else
 				cout << "已解出" + parameter2 + "里的数独" << endl;
 			in.close();
-			ofstream out("sudoku.txt", ios::out|ios::trunc);
+			ofstream out("sudoku.txt", ios::out | ios::trunc);
 			if (out.is_open()) {
 				out << answer;
 				out.close();
@@ -67,7 +67,7 @@ void InputHandler::check(int argc, char ** argv)
 	else {
 		cout << "输入有误！" << endl;
 	}
-	return ;
+	return;
 }
 
 int InputHandler::isNum(const string & str)
@@ -75,7 +75,7 @@ int InputHandler::isNum(const string & str)
 	size_t size = str.size();
 	if (size > 7)
 		return 0;
-	for (size_t i = 0; i < size; i++){
+	for (size_t i = 0; i < size; i++) {
 		int ascii = int(str[i]);
 		if (ascii >= 48 && ascii <= 57)
 			continue;

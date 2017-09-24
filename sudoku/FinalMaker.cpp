@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "FinalMaker.h"
 
-string FianlMaker::make(int n){
+string FianlMaker::make(int n) {
 	num = n;
 	count = 0;
 	int a[9] = { 1,2,3,4,5,6,7,8,9 };
@@ -12,7 +12,7 @@ string FianlMaker::make(int n){
 	return str;
 }
 
-bool FianlMaker::tableToString(int table[][9]){
+bool FianlMaker::tableToString(int table[][9]) {
 	for (size_t i = 0; i < 9; i++) {
 		for (size_t j = 0; j < 9; j++) {
 			str += char(table[i][j] + '0');
@@ -27,16 +27,16 @@ bool FianlMaker::tableToString(int table[][9]){
 	return count < num ? true : false;
 }
 
-void FianlMaker::rowExchange(int table[][9], int r1, int r2){
-	int temp; 
-	for (size_t i = 0; i < 9; i++){
+void FianlMaker::rowExchange(int table[][9], int r1, int r2) {
+	int temp;
+	for (size_t i = 0; i < 9; i++) {
 		temp = table[r1][i];
 		table[r1][i] = table[r2][i];
 		table[r2][i] = temp;
 	}
 }
 
-void FianlMaker::colExchange(int table[][9], int c1, int c2){
+void FianlMaker::colExchange(int table[][9], int c1, int c2) {
 	for (size_t i = 0; i < 9; i++) {
 		int temp;
 		temp = table[i][c1];
@@ -45,13 +45,13 @@ void FianlMaker::colExchange(int table[][9], int c1, int c2){
 	}
 }
 
-void FianlMaker::combina(int c1, int c2, int c3, int r1, int r2, int r3){
+void FianlMaker::combina(int c1, int c2, int c3, int r1, int r2, int r3) {
 	int t[9][9];
 	memcpy(t, table, sizeof(table));
 	if (c1 == 1)
 		colExchange(t, 1, 2);
 
-	if(c2==1)
+	if (c2 == 1)
 		colExchange(t, 4, 5);
 	else if (c2 == 2)
 		colExchange(t, 3, 4);
@@ -63,7 +63,7 @@ void FianlMaker::combina(int c1, int c2, int c3, int r1, int r2, int r3){
 		colExchange(t, 3, 5);
 		colExchange(t, 4, 5);
 	}
-	else if (c2 == 5) 
+	else if (c2 == 5)
 		colExchange(t, 3, 5);
 
 	if (c3 == 1)
