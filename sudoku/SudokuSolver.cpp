@@ -1,6 +1,11 @@
 #include "stdafx.h"
 #include "SudokuSolver.h"
 
+int Left[num], Right[num], Up[num], Down[num];	// 每个元素的4个方向分量（相当于链表中的箭头）
+int Col[num];		// 记录每个元素的列标元素
+int Row[num];		// 记录每个元素所在的01矩阵行数
+int Size[maxcol];	// 记录每列的“1”元素个数
+int Head[maxrow];	// 记录每行第一个“1”元素
 static char str[163];
 static int index;
 
@@ -21,7 +26,9 @@ char* SudokuSolver::solve(char ch[]) {
 			}
 		}
 	}
+
 	(dfs(select + 1));
+
 	for (size_t i = 0; i < 9; i++) {
 		for (size_t j = 0; j < 8; j++) {
 			str[index++] = char(table[i][j] + '0');

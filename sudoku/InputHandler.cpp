@@ -3,8 +3,7 @@
 #include "FinalMaker.h"
 #include "SudokuSolver.h"
 
-void InputHandler::check(int argc, char ** argv)
-{
+void InputHandler::check(int argc, char ** argv){
 	if (argc == 3) {
 		string parameter1 = argv[1];
 		string parameter2 = argv[2];
@@ -17,7 +16,6 @@ void InputHandler::check(int argc, char ** argv)
 				fm.make(n);
 				cout << "已生成" + parameter2 + "个数独终盘" << endl;
 			}
-
 		}
 		else if (parameter1 == "-s") {
 			ifstream in(parameter2);
@@ -29,25 +27,25 @@ void InputHandler::check(int argc, char ** argv)
 			char c;
 			int count = 0;
 			SudokuSolver ss;
-			ofstream out("sudoku.txt", ios::out | ios::trunc);
+			FILE* out = fopen("sudoku.txt", "wt");
 			while (in.get(c)) {	//in >> c 会忽略空白回车符
 				if (isdigit(c)) {
 					ch[count++] = c;
 				}
 				if (count == 81) {
 					count = 0;
-					out << ss.solve(ch);
+					fputs(ss.solve(ch),out);
 				}
 			}
 			in.close();
 			if (count != 0) {
-				string str = "存在错误格式！";
-				out << str;
+				char *str = "存在错误格式！";
+				fputs(str, out);
 				cout << str << endl;
 			}
 			else
 				cout << "已解出" + parameter2 + "里的数独" << endl;
-			out.close();
+			fclose(out);
 		}
 		else {
 			cout << "输入有误！" << endl;

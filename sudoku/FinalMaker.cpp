@@ -28,19 +28,21 @@ void FianlMaker::make(int n) {
 							for (int r3 = 0; r3 < 6; r3++) {
 								combina(c1, c2, c3, r1, r2, r3);
 								if (count == num) {
-									ofstream out;
+									/*	ofstream out;
 									out.open("sudoku.txt", ios::out | ios::trunc);	// 写入前先清空文件
 									out << str;
-									out.close();
+									out.close();*/
+									FILE* out=fopen("sudoku.txt", "wt");
+									fputs(str, out);
+									fclose(out);
 									return;
 								}
 							}
 		next_permutation(a, a + 8);	 // 按升序进行全排列一次，只排列前8个元素
 	}
-
 }
 
-void FianlMaker::tableToString() {
+void FianlMaker::record() {
 	for (int i = 0; i < 9; i++) {
 		for (int j = 0; j < 8; j++) {
 			str[index++] = table[i][j] + '0';
@@ -54,13 +56,19 @@ void FianlMaker::tableToString() {
 }
 
 void FianlMaker::rowExchange(const int& r1, const int& r2) {
-	for (int i = 0; i < 9; i++) 
-		swap(table[r1][i], table[r2][i]) ;
+	for (int i = 0; i < 9; i++) {
+		int t = table[r1][i];
+		table[r1][i] = table[r2][i];
+		table[r2][i] = t;
+	}
 }
 
 void FianlMaker::colExchange(const int& c1, const int& c2) {
-	for (int i = 0; i < 9; i++) 
-		swap(table[i][c1], table[i][c2]);
+	for (int i = 0; i < 9; i++) {
+		int t = table[i][c1];
+		table[i][c1] = table[i][c2];
+		table[i][c2] = t;
+	}
 }
 
 void FianlMaker::combina(const int& c1, const int& c2, const int& c3, const int& r1, const int& r2, const int& r3) {
@@ -145,5 +153,5 @@ void FianlMaker::combina(const int& c1, const int& c2, const int& c3, const int&
 		rowExchange(6, 8);
 		break;
 	}
-	tableToString();
+	record();
 }

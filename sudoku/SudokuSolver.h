@@ -13,11 +13,6 @@ public:
 	char* solve(char ch[]);
 
 private:
-	int Left[num], Right[num], Up[num], Down[num];	// 每个元素的4个方向分量（相当于链表中的箭头）
-	int Col[num];		// 记录每个元素的列标元素
-	int Row[num];		// 记录每个元素所在的01矩阵行数
-	int Size[maxcol];	// 记录每列的“1”元素个数
-	int Head[maxrow];	// 记录每行第一个“1”元素
 	int table[9][9];	// 数独
 	int no;				// 元素编号
 	void transform(int table[][9], char ch[]);
