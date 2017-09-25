@@ -9,7 +9,6 @@ public:
 	void check(int argc, char **argv);
 
 private:
-	int isNum(const string &str);
-	int isPath(const string &str);
+	int isNum(const string &s);
 };
 

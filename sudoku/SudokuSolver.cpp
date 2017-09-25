@@ -1,16 +1,11 @@
 #include "stdafx.h"
 #include "SudokuSolver.h"
 
-const int maxrow = 9 * 9 * 9;
-const int maxcol = 1 + 9 * 9 * 4;
-const int num = maxcol + maxrow * 4;	// 总元素个数,  第一个为Head元素,接着9*9*4个为列标元素,最后9*9*9*4个为“1”元素
-int Left[num], Right[num], Up[num], Down[num];	// 每个元素的4个方向分量（相当于链表中的箭头）
-int Col[num];		// 记录每个元素的列标元素
-int Row[num];		// 记录每个元素所在的01矩阵行数
-int Size[maxcol];	// 记录每列的“1”元素个数
-int Head[maxrow];	// 记录每行第一个“1”元素
+static char str[163];
+static int index;
 
-string SudokuSolver::solve(char ch[]) {
+char* SudokuSolver::solve(char ch[]) {
+	index = 0;
 	transform(table, ch);
 	link();
 	int select = 0;
@@ -27,14 +22,16 @@ string SudokuSolver::solve(char ch[]) {
 		}
 	}
 	(dfs(select + 1));
-	out = "";
 	for (size_t i = 0; i < 9; i++) {
-		for (size_t j = 0; j < 8; j++)
-			out += (to_string(table[i][j]) + " ");
-		out += (to_string(table[i][8]) + "\n");
+		for (size_t j = 0; j < 8; j++) {
+			str[index++] = char(table[i][j] + '0');
+			str[index++] = ' ';
+		}
+		str[index++] = (table[i][8] + '0');
+		str[index++] = '\n';
 	}
-	out += "\n";
-	return out;
+	str[index++] = '\n';
+	return str;
 }
 
 void SudokuSolver::transform(int table[][9], char ch[]) {

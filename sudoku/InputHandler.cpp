@@ -13,14 +13,8 @@ void InputHandler::check(int argc, char ** argv)
 			if (n <= 0 || n > 1000000)
 				cout << "不满足0<n<=1000000！" << endl;
 			else {
-				string str;
 				FianlMaker fm;
-				str = fm.make(n);
-				ofstream out("sudoku.txt", ios::out | ios::trunc);	// 写入前先清空文件
-				if (out.is_open()) {
-					out << str;
-					out.close();
-				}
+				fm.make(n);
 				cout << "已生成" + parameter2 + "个数独终盘" << endl;
 			}
 
@@ -31,34 +25,29 @@ void InputHandler::check(int argc, char ** argv)
 				cout << parameter2 + "无法打开！" << endl;
 				return;
 			}
-
 			char ch[81];
 			char c;
 			int count = 0;
-			string answer = "";
 			SudokuSolver ss;
+			ofstream out("sudoku.txt", ios::out | ios::trunc);
 			while (in.get(c)) {	//in >> c 会忽略空白回车符
 				if (isdigit(c)) {
 					ch[count++] = c;
 				}
 				if (count == 81) {
 					count = 0;
-					answer += ss.solve(ch);
+					out << ss.solve(ch);
 				}
 			}
+			in.close();
 			if (count != 0) {
 				string str = "存在错误格式！";
-				answer += str;
+				out << str;
 				cout << str << endl;
 			}
 			else
 				cout << "已解出" + parameter2 + "里的数独" << endl;
-			in.close();
-			ofstream out("sudoku.txt", ios::out | ios::trunc);
-			if (out.is_open()) {
-				out << answer;
-				out.close();
-			}
+			out.close();
 		}
 		else {
 			cout << "输入有误！" << endl;
@@ -70,28 +59,16 @@ void InputHandler::check(int argc, char ** argv)
 	return;
 }
 
-int InputHandler::isNum(const string & str)
-{
-	size_t size = str.size();
+int InputHandler::isNum(const string & s){
+	size_t size = s.size();
 	if (size > 7)
 		return 0;
 	for (size_t i = 0; i < size; i++) {
-		int ascii = int(str[i]);
+		int ascii = int(s[i]);
 		if (ascii >= 48 && ascii <= 57)
 			continue;
 		else
 			return 0;
 	}
-	return stoi(str);
-}
-
-int InputHandler::isPath(const string & str)
-{
-	fstream file;
-	file.open(str, ios::in);
-	if (file)
-		return 1;
-	else {
-		return 0;
-	}
+	return stoi(s);
 }
